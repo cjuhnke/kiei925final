@@ -1,0 +1,19 @@
+<% user = User.find_by(id: params["id"]) %>
+
+<h1>Update Your Profile</h1>
+
+<form action="/users/<%=user.id%>/update" class="col-sm-5">
+  <p class="form-group">
+    Username:
+    <input class="form-control" value= <%=user.username%> name="username" autofocus required>
+  </p>
+  <p class="form-group">
+    Name:
+    <input class="form-control" value= <%= user.name %> name="name" autofocus required>
+  </p>
+  <p class="form-group">
+    Email:
+    <input class="form-control" value= <%= user.email %> name="email" autofocus required>
+  </p>
+  <button class="btn btn-primary">Update</button>
+</form>

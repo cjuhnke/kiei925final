@@ -1,0 +1,29 @@
+<h1>Add a Recipe</h1>
+
+<form action="/recipes/create" class="col-sm-4">
+    <p class="form-group">
+        Recipe title:
+        <input class="form-control" name="name" autofocus required>
+    </p>
+    <p class="form-group">
+        Total time:
+        <input class="form-control" name="time" autofocus required>
+    </p>
+    <p class="form-group">
+        Recipe Image URL:
+        <input class="form-control" name="image_url" required>
+    </p>
+    <p class="form-group">
+        Ingredients (separate by commas):
+        <textarea class="form-control" name="ingredients"  required></textarea>
+    </p>
+    
+    <p class="form-group">
+        Instructions (separate each step with a comma):
+        <textarea class="form-control" name="instructions" required></textarea>
+    </p>
+    
+    <button class="btn btn-primary">Submit recipe</button>
+    
+    
+</form>

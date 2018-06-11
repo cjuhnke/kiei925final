@@ -1,0 +1,30 @@
+<% recipe = Recipe.find_by(id: params["id"]) %>
+
+<h1>Edit Your Recipe</h1>
+
+<form action="/recipes/<%=recipe.id%>/update" class="col-sm-4">
+    <p class="form-group">
+        Recipe title:
+        <input class="form-control" value="<%= recipe.name %>" name="name" autofocus required>
+    </p>
+    <p class="form-group">
+        Total time:
+        <input class="form-control" value="<%= recipe.total_time %>" name="time" autofocus required>
+    </p>
+    <p class="form-group">
+        Recipe Image URL:
+        <input class="form-control" value="<%= recipe.image_url %>" name="image_url" required>
+    </p>
+    <p class="form-group">
+        Ingredients (separate by commas):
+        <textarea class="form-control input-lg" name="instructions" rows="3" required><%= recipe.ingredients %></textarea>
+    </p>
+    <p class="form-group">
+        Instructions (separate each step with a comma):
+        <textarea class="form-control input-lg" name="instructions" rows="3" required><%= recipe.instructions %></textarea>
+    </p>
+    
+    <button class="btn btn-primary">Update recipe</button>
+    
+    
+</form>

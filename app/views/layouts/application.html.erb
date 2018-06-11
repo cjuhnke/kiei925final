@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Website</title>
+    <title>RecipeLand</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%= javascript_include_tag "https://code.jquery.com/jquery-3.2.1.slim.min.js" %>
-    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"%>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -15,10 +15,55 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/recipes">Recipes</a>
+          </li>
+          <% if session["user_id"] == nil %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/new">Sign Up</a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+          <% if session["user_id"] == nil %>
+            <li class="nav-item" >
+              <a class="nav-link" href="/login">Sign In</a>
+            </li>
+          <% else %>
+            <span class="navbar-text">
+              <font color="white"> Hello <%= User.find_by(id: session["user_id"]).name %> </font>
+            </span>
+            <li class="nav-item" >
+              <a class="nav-link" href="/users/<%= session["user_id"] %>">My Account</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href="/logout">Sign Out</a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
     <div class="container-fluid mt-3">
 
+      <% if notice.present? %>
+        <div class="alert alert-info">
+          <%= notice %>
+        </div>
+      <% end %>
+      
       <%= yield %>
 
+      <hr>
     </div>
 
 

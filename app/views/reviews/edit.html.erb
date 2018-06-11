@@ -1,0 +1,14 @@
+<% review = Review.find_by(id: params["id"]) %>
+ 
+ <h2>Edit your review</h2>
+  <form action="/reviews/<%=review.id%>/update" class="col-sm-5">
+    <p class="form-group">
+        Recipe rating (1-5):
+        <input class="form-control" value="<%= review.rating %>" name="rating" autofocus required>
+    </p>
+    <p class="form-group">
+        Review:
+        <textarea class="form-control" name="review" autofocus required><%= review.review_text %></textarea>
+    </p>
+  <button class="btn btn-primary">Update review</button>
+</form>

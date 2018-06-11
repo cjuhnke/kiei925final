@@ -1,1 +1,15 @@
-/* Put your style rules here. */
+.card-img-top {
+    position: relative;
+    width:  270px;
+    height: 250px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+.jumbotron {
+    background-image: url("https://i2.wp.com/lajournaliste.com/wp-content/uploads/2016/09/cooking-1200x675-e1474637003933.jpg");
+    background-position: 0% 60%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: black;
+}

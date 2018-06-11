@@ -1,35 +1,20 @@
-# Example:
-#
-# Book
-#   title: text
-#   author_id: integer
-#   summary: text
-#   price: integer
-#   hardcover: boolean
-#
-#
-# Indent consistently!  Follow the above syntax exactly.
-#
-#
-#
-# Column choices are: text, integer, boolean, datetime, and float.
-#
-#
-# Default values can be specified like this:
-#
-#    price: integer(0)
-#
-# If not specified, Boolean columns always default to false.
-#
-# You can omit the column type if it's a text column or obviously an integer column:
-#
-# Book
-#   title
-#   author_id
-#   summary
-#   price: integer
-#   hardcover: boolean
-#
-# Complete details are in the README file online.
-#
-# Have fun!
+Recipe
+  name: text
+  total_time: integer
+  image_url: text
+  ingredients: text
+  instructions: text
+  user_id: integer
+  avg_rating: float
+
+User
+  name: text
+  username: text
+  email: text
+  password_digest: text
+  
+Review
+  rating: integer
+  review_text: text
+  recipe_id: integer
+  user_id: integer

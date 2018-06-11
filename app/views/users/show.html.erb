@@ -1,0 +1,60 @@
+<% user = User.find_by(id: params["id"]) %>
+
+<div class="container-fluid">
+  <div class="row">
+    <h1>Your Account</h1>
+    <a href="/users/<%= user.id %>/edit">Edit</a>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class ="col sm-8">
+      <p>
+        Name: <%= user.name %>
+        <br>
+        Username: <%= user.username %>
+        <br>
+        Email: <%= user.email %>
+        <br>
+        Joined on: <%= user.created_at.to_s[0,10] %>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class ="col sm-6">
+        <h4>Your Recipes</h4>
+        <ul>
+          <% for recipe in Recipe.where(user_id: user.id) %>
+            <% if Recipe.where(user_id: recipe.user_id) != nil %>
+              <li>
+                <a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a>
+                 &emsp;
+                <a href="/recipes/<%= recipe.id %>/edit"> Edit </a>
+              </li>
+            <% else %>
+              You have not contributed any recipes.
+            <% end %>
+          <% end %>
+        </ul>  
+    </div>
+    <div class ="col sm-6">
+      <h4>Your Reviews</h4>
+      <ul>
+        <% for review in Review.where(user_id: user.id) %>
+          <% if Review.where(user_id: review.user_id) != nil %>
+            <li>
+              <a href="/recipes/<%= review.recipe_id %>"><%= Recipe.find_by(id: review.recipe_id).name %></a>
+              &emsp;
+              <a href="/reviews/<%= review.id %>/edit"> Edit </a>
+            </li>
+          <% else %>
+            You have not reviewed any recipes.
+          <% end %>
+        <% end %>
+      </ul> 
+    </div>
+  </div>
+</div>

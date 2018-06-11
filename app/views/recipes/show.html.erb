@@ -1,0 +1,101 @@
+<% recipe_id = params[:id] %>
+<% recipe = Recipe.find_by(id: recipe_id) %>
+<% prior_review = Review.find_by(user_id: session["user_id"], recipe_id: recipe.id) %>
+
+<div class="row">
+
+  <div class="col-sm-6">
+    <h2>
+      <%= recipe.name %>
+    </h2>
+    <% if recipe.user_id != nil %>
+      <h5>
+          Contributed by <%= User.find_by(id: recipe.user_id).username %>
+      </h5>
+    <% end %>
+    <% if recipe.avg_rating != nil %>
+      Rating: <strong><%= recipe.avg_rating %></strong>;
+    <% else %>
+      Recipe not yet rated;
+    <% end %>
+    <% if recipe.total_time != nil %>
+      Total time: <%= recipe.total_time %> minutes
+    <% end %>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-sm-3">
+    <img src="<%= recipe.image_url %>" class="img-fluid">
+
+  </div>
+
+  <div class="col-sm-7">
+    <% if session["user_id"] == recipe.user_id %>
+      <a href="/recipes/<%= recipe.id %>/delete" class="float-right">
+        <i class="fa fa-trash"></i>
+        Delete
+      </a>
+      <a href="/recipes/<%= recipe.id %>/edit" class="pr-5 float-right">
+        <i class="fa fa-pencil-square-o"></i>
+        Edit This Recipe
+      </a>
+    
+    <% else %>
+      <% if session["user_id"] == nil %>
+        <a href="/login" class="pr-5 float-right">
+          <i class="fa fa-sign-in"></i>
+          Sign in to leave a review
+        </a>
+      <% else if prior_review == nil %>
+        <a href="/reviews/<%= recipe.id %>/new" class="pr-5 float-right">
+          <i class="fa fa-pencil-square-o"></i>
+          Review This Recipe
+        </a>
+      <% else %>
+        <a href="/reviews/<%= prior_review.id %>/edit" class="pr-5 float-right">
+          <i class="fa fa-pencil-square-o"></i>
+            Edit Your Review
+        </a>
+      <% end %>
+      <% end %>
+    <% end %>
+    
+    <h5> Ingredients </h5>
+    <ul>
+      <% ingredients = recipe.ingredients.split(',') %>
+      <% for item in ingredients %>
+        <li>
+          <%= item %>
+        </li>
+      <% end %>
+    </ul>
+    
+    <h5> Instructions </h5>
+    <ol>
+      <% instructions = recipe.instructions.split(',') %>
+      <% for item in instructions %>
+        <li>
+          <%= item %>
+        </li>
+      <% end %>
+    </ol>
+    
+    <p>
+      Other recipes by this user:
+      <ul>
+        <% if Recipe.where(user_id: recipe.user_id).count > 2 %>
+          This user has not contributed any other recipes.
+        <% else %>
+          <% for other_recipe in Recipe.where(user_id: recipe.user_id) %>
+            <% if other_recipe.id != recipe.id %>
+              <li><a href="/recipes/<%= other_recipe.id %>"><%= other_recipe.name %></a></li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+</div>

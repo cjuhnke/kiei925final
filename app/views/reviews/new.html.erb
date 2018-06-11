@@ -1,0 +1,50 @@
+<% recipe_id = params[:id] %>
+<% recipe = Recipe.find_by(id: recipe_id) %>
+
+<div class="row">
+
+  <div class="col-sm-6">
+    <h2>
+      <%= recipe.name %>
+    </h2>
+    <% if recipe.user_id != nil %>
+      <h5>
+          Contributed by <%= User.find_by(id: recipe.user_id).username %>
+      </h5>
+    <% end %>
+    <% if recipe.avg_rating != nil %>
+      Rating: <strong><%= recipe.avg_rating %></strong>;
+    <% else %>
+      Recipe not yet rated;
+    <% end %>
+    <% if recipe.total_time != nil %>
+      Total time: <%= recipe.total_time %> minutes
+    <% end %>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-sm-3">
+    <img src="<%= recipe.image_url %>" class="img-fluid">
+
+  </div>
+
+  <div class="col-sm-7">
+    <p>
+      <h2>Leave a review</h2>
+        <form action="/reviews/<%=recipe.id%>/create" class="col-sm-5">
+          <p class="form-group">
+              Recipe rating (1-5):
+              <input class="form-control" name="rating" autofocus required>
+          </p>
+          <p class="form-group">
+              Review:
+              <textarea class="form-control" name="review" autofocus required></textarea>
+          </p>
+        <button class="btn btn-primary">Submit review</button>
+      </form>
+    </p>
+  </div>
+</div>

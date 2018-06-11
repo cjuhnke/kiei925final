@@ -1,0 +1,43 @@
+<% if session["user_id"] == nil %>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to Recipeland!</h1>
+    <p class="lead">Share and discover new recipes and enjoy delicious food at every meal!</p>
+      <a class="btn btn-primary btn-lg" href="/users/new" role="button">Sign Up</a>
+    </p>
+  </div>
+<% else %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h1>Welcome to RecipeLand!</h1>
+      </div>
+      <div class="col"
+        <p>
+          <a class="float-right btn btn-primary" href="/recipes/new">Add a New Recipe</a>
+        <p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="container-fluid">
+  <br>
+  <h2>Top Recipes</h2>
+  <div class="row">
+    <% for recipe in @recipes %>
+      <div class="col-sm-3 m-4">
+        <div class="card-body">
+          <div class="card bg-dark text-white text-center" style="width: 18rem;">
+            <a href="/recipes/<%= recipe.id %>"> <img class="card-img-top" src="<%= recipe.image_url %>"></a>
+            <h5 class="card-title"> <%= recipe.name %> </h5>
+            <div class="container-fluid">
+              <% recipe.avg_rating.to_i.times do  %> 
+                <i class="fa fa-star"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
